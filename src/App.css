@@ -36,3 +36,15 @@
     transform: rotate(360deg);
   }
 }
+
+
+
+
+/*app*/
+
+
+
+.lista_items_realizado{
+  text-decoration: line-through;
+  text-decoration-color: red;
+}
