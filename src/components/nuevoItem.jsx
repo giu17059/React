@@ -40,6 +40,11 @@ export function Nuevo() {
     }
 }
 
+  function Eliminar (indexItem){
+    setItems((items) => items.filter((item,index) => index !== indexItem))
+  }
+
+
   return (
     <div>
       <div>
@@ -66,10 +71,11 @@ export function Nuevo() {
         {items.map((item, index) => (
             <div>
                 <li className={item.marcado ? "lista_items_realizado":""} key={index}>{item.nombre}  cantidad: {item.cantidad}
-                    <input 
-                        type="checkbox" 
-                        onChange={() => Realizado(index)}/>
-                    <input type="checkbox" />
+                    <input  className="lista_item_hecho"
+                            type="checkbox" 
+                            onChange={() => Realizado(index)}/>
+                    <button className="lista_item_eliminar"
+                            onClick={() => Eliminar(index)}>X</button>
                 </li>
                 {console.log(item)}
             </div>
