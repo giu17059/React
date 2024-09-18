@@ -3,7 +3,7 @@ import React, {useState} from "react";
 import { Nuevo } from './components/nuevoItem';
 import { Editar } from './components/editar';
 
-let contador = 0;
+
 
 function App() {
 
@@ -12,6 +12,7 @@ function App() {
 const [pantalla, setPantalla] = useState(true);
 const [itemEdit, setItemEdit] = useState(null)
 const [lista, setLista] = useState([]);
+const [contadorId,setContadorId] = useState(1)
 
  
 return (
@@ -20,18 +21,21 @@ return (
   {pantalla ? (
 // NO tocar
 //
+   
     <div>
-      <Nuevo setEdit={setItemEdit} setpantalla={setPantalla} items ={lista} setItems={setLista} contadorID={contador}></Nuevo>
+      <Nuevo setEdit={setItemEdit} setPant={setPantalla} items ={lista} setItems={setLista} contador={contadorId} setContador={setContadorId}></Nuevo>
     </div>
-
-
+    
 
 
 
 ):(
-<div>
-<Editar producto = {itemEdit} setPant={setPantalla} items ={lista} setItems={setLista}></Editar>
-</div>
+
+  <div>
+    <Editar producto = {itemEdit} setPant={setPantalla} items ={lista} setItems={setLista}></Editar>
+  </div>
+
+
 //NO tocar
 //
     )

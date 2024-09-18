@@ -4,27 +4,27 @@ import React, { useState } from "react";
 
   
 
-export function Editar ({producto, setPantalla, items, setItems}){
+export function Editar ({producto, setPant, items, setItems}){
     const [itemEditNombre, setEditNombre] = useState ("");
     const [itemEditCantidad, setEditCantidad] = useState (0);
 
     function CambiarItem (idItem){
         setItems(items.map(item =>
           item.id === idItem ? { ...item, nombre: itemEditNombre, cantidad:itemEditCantidad } : item));
-          setPantalla(true);
+          setPant(true);
       }
     
       function validarCantidadEdit (e){
         const cant = parseInt(e.target.value, 10);
-        if(cant < 0){
-            setEditCantidad(0);
-        }else{
-            setEditCantidad(cant);
-        }
+        cant < 0 ? setEditCantidad(0):
+        (cant > 10 ? setEditCantidad (10):
+        setEditCantidad(cant));
+            
+       
     }
     
       function CancelarEdit () {
-      setPantalla(true);
+      setPant(true);
     };
     
 
@@ -36,7 +36,7 @@ export function Editar ({producto, setPantalla, items, setItems}){
         </div>
         <div>
             <label>nombre: {producto.nombre}</label>
-            <label>cantidad: {producto.cantidad}</label>
+            <label> cantidad: {producto.cantidad}</label>
         </div>
         <input
           type="text"
@@ -51,8 +51,8 @@ export function Editar ({producto, setPantalla, items, setItems}){
             max={10}
             value={itemEditCantidad}
             onChange={validarCantidadEdit} />
-        <button onClick={CambiarItem (producto.id)}>Guardar</button>
-        <button onClick={CancelarEdit}>Cancelar</button>
+        <button onClick={()=>CambiarItem (producto.id)}>Guardar</button>
+        <button onClick={()=>CancelarEdit()}>Cancelar</button>
       </div>
   );
 }

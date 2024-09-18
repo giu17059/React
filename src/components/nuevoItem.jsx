@@ -1,25 +1,26 @@
 import "../App.css";
 import React, { useState } from "react";
 
-export function Nuevo({setEdit, setpantalla, items, setItems, contadorID}) {
-  /*lista items */
+export function Nuevo({setEdit, setPant, items, setItems, contador, setContador}) {
+  
+  /*lista items */ 
   const [itemNombre, setInputNombre] = useState("");
   const [itemCantidad, setInputCantidad] = useState(0);
+  let cont=contador;
+ 
 
-
-
-  
   function Agregar() {
     if (itemNombre.trim() && itemCantidad > 0 && itemCantidad<10) {
-        const nuevoitem = {id:contadorID ,nombre: itemNombre, cantidad:itemCantidad, marcado:false};
-        contadorID++;
+      const nuevoitem = {id:cont ,nombre: itemNombre, cantidad:itemCantidad, marcado:false};
+      cont++;
+      setContador(cont);
       setItems([...items, nuevoitem]); 
       setInputNombre(''); 
       setInputCantidad(1);
     }
     if(itemNombre.trim() && itemCantidad > 0 && itemCantidad>=10) {
-        const nuevoitem = {id:contadorID, nombre: itemNombre, cantidad:10, marcado:false};
-        contadorID++;
+      const nuevoitem = {id:contador, nombre: itemNombre, cantidad:10, marcado:false};
+      setContador(contador++);
       setItems([...items, nuevoitem]); 
       setInputNombre(''); 
       setInputCantidad(1);
@@ -52,7 +53,7 @@ export function Nuevo({setEdit, setpantalla, items, setItems, contadorID}) {
 
   function Editar (item){
     setEdit(item);  
-    setpantalla(false);
+    setPant(false);
   }
 
 
@@ -60,7 +61,7 @@ export function Nuevo({setEdit, setpantalla, items, setItems, contadorID}) {
     <div>
       <div>
         <div>
-          <label>Nuevo item (cantidad max 10)</label>
+          <h1>Nuevo item (cantidad max 10)</h1>
         </div>
         <input
           type="text"
