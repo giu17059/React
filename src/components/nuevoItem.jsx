@@ -1,35 +1,40 @@
 import "../App.css";
 import React, { useState } from "react";
 
-export function Nuevo() {
+export function Nuevo({setEdit, setpantalla, items, setItems, contadorID}) {
   /*lista items */
-  const [items, setItems] = useState([]);
-  const [itemNombre, setInputNombre]=useState("");
-  const [itemCantidad, setInputCantidad]= useState(0);
+  const [itemNombre, setInputNombre] = useState("");
+  const [itemCantidad, setInputCantidad] = useState(0);
 
-  /*items comprados*/
-  const [posicionItem, setPosicionItem]=useState([]);
 
+
+  
   function Agregar() {
     if (itemNombre.trim() && itemCantidad > 0 && itemCantidad<10) {
-        const nuevoitem = {nombre: itemNombre, cantidad:itemCantidad, marcado:false};
+        const nuevoitem = {id:contadorID ,nombre: itemNombre, cantidad:itemCantidad, marcado:false};
+        contadorID++;
       setItems([...items, nuevoitem]); 
       setInputNombre(''); 
       setInputCantidad(1);
     }
     if(itemNombre.trim() && itemCantidad > 0 && itemCantidad>=10) {
-        const nuevoitem = {nombre: itemNombre, cantidad:10, marcado:false};
+        const nuevoitem = {id:contadorID, nombre: itemNombre, cantidad:10, marcado:false};
+        contadorID++;
       setItems([...items, nuevoitem]); 
       setInputNombre(''); 
       setInputCantidad(1);
   }
-   }
+ }
 
-  function Realizado(index){
-   const listaNueva = [...items];
-   listaNueva[index].marcado= !listaNueva[index].marcado;
-   setItems(listaNueva);
+  function Realizado(producto){
+    producto.marcado ? producto.marcado = false : producto.marcado = true;
+    const marcado = items.filter(item=> item.marcado === true); 
+    const nomarcado = items.filter(item => item.marcado === false);
+    const listaNueva = [...nomarcado,...marcado];
+
+   setItems(listaNueva); 
   }
+
 
   function validarCantidad (e){
     const cant = parseInt(e.target.value, 10);
@@ -40,8 +45,14 @@ export function Nuevo() {
     }
 }
 
+
   function Eliminar (indexItem){
-    setItems((items) => items.filter((item,index) => index !== indexItem))
+    setItems((items) => items.filter((item, index) => index !== indexItem))
+  }
+
+  function Editar (item){
+    setEdit(item);  
+    setpantalla(false);
   }
 
 
@@ -70,12 +81,15 @@ export function Nuevo() {
       <ul className="lista_contenedor">
         {items.map((item, index) => (
             <div>
-                <li className={item.marcado ? "lista_items_realizado":""} key={index}>{item.nombre}  cantidad: {item.cantidad}
+                <li className={item.marcado ? "lista_items_realizado":""} key={item.id}>{item.nombre}  cantidad: {item.cantidad}
                     <input  className="lista_item_hecho"
+                            checked= {item.marcado}
                             type="checkbox" 
-                            onChange={() => Realizado(index)}/>
+                            onChange={() => Realizado(item)}/>
                     <button className="lista_item_eliminar"
                             onClick={() => Eliminar(index)}>X</button>
+                    <button className="lista_item_modificar"
+                            onClick={() => Editar(item)}>EDIT</button>
                 </li>
                 {console.log(item)}
             </div>
