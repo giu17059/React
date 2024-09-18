@@ -1,46 +1,45 @@
 import './App.css';
 import React, {useState} from "react";
 import { Nuevo } from './components/nuevoItem';
-/* const [texto, setText]=useState("notificacion")
+import { Editar } from './components/editar';
 
-
-  function cambioTexto(e){
-    console.log(e)
-    if(e.target.checked){
-    setText("chau")
-    }
-    else{
-      setText("hola")
-    }
-  }
-
-  return (
-    <div className="App">
-      <input type='checkbox' onChange={cambioTexto}></input>
-      <Notification 
-      titulo={texto}/>
-
-      
-    </div>
-    
-    
-  );*/
+let contador = 0;
 
 function App() {
 
-return(
+
+/*pantalla*/
+const [pantalla, setPantalla] = useState(true);
+const [itemEdit, setItemEdit] = useState(null)
+const [lista, setLista] = useState([]);
+
+ 
+return (
 
 <div className="inicio">
-<Nuevo></Nuevo>
+  {pantalla ? (
+// NO tocar
+//
+    <div>
+      <Nuevo setEdit={setItemEdit} setpantalla={setPantalla} items ={lista} setItems={setLista} contadorID={contador}></Nuevo>
+    </div>
+
+
+
+
+
+):(
+<div>
+<Editar producto = {itemEdit} setPant={setPantalla} items ={lista} setItems={setLista}></Editar>
 </div>
+//NO tocar
+//
+    )
+    }
+  </div>
+  );
+};
 
-
-
-
-
-
-
-)}
 export default App;
 
 /*function App() {
