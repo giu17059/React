@@ -2,28 +2,50 @@ import './App.css';
 import React, {useState} from "react";
 import { Nuevo } from './components/nuevoItem';
 import { Editar } from './components/editar';
-
+import { SelectLista } from './components/selectorLista';
 
 
 function App() {
 
-
 /*pantalla*/
 const [pantalla, setPantalla] = useState(true);
+/*listas*/
 const [itemEdit, setItemEdit] = useState(null)
-const [lista, setLista] = useState([]);
-const [contadorId,setContadorId] = useState(1)
+const [contadorId,setContadorId] = useState(1);
+const [listaLista, setListaLista] = useState([[]]);
+const [lista, setLista] = useState(listaLista[0]);
+const [indexListaActual, setIndexListaActual] = useState(0);
 
- 
+
+function actualizarListaActual(nuevaLista) {
+  const listaActualizada = [...listaLista];
+  listaActualizada[indexListaActual] = nuevaLista; 
+  setListaLista(listaActualizada); 
+  setLista(nuevaLista); 
+}
+
 return (
 
 <div className="inicio">
   {pantalla ? (
 // NO tocar
 //
-   
     <div>
-      <Nuevo setEdit={setItemEdit} setPant={setPantalla} items ={lista} setItems={setLista} contador={contadorId} setContador={setContadorId}></Nuevo>
+      <SelectLista 
+      setLista={setLista} 
+      lista={listaLista} 
+      setListaLista={setListaLista} 
+      listaActual={lista}
+      setIndexListaActual={setIndexListaActual}/>
+      
+      <Nuevo 
+      setEdit={setItemEdit} 
+      setPant={setPantalla} 
+      items ={lista} 
+      setItems={actualizarListaActual} 
+      contador={contadorId} 
+      setContador={setContadorId}/>
+
     </div>
     
 
@@ -32,7 +54,11 @@ return (
 ):(
 
   <div>
-    <Editar producto = {itemEdit} setPant={setPantalla} items ={lista} setItems={setLista}></Editar>
+    <Editar 
+    producto = {itemEdit} 
+    setPant={setPantalla} 
+    items ={lista} 
+    setItems={actualizarListaActual}/>
   </div>
 
 

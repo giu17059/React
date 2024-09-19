@@ -1,5 +1,6 @@
 import "../App.css";
 import React, { useState } from "react";
+import { MostrarLista } from "./listado";
 
 export function Nuevo({setEdit, setPant, items, setItems, contador, setContador}) {
   
@@ -10,18 +11,17 @@ export function Nuevo({setEdit, setPant, items, setItems, contador, setContador}
  
 
   function Agregar() {
-    if (itemNombre.trim() && itemCantidad > 0 && itemCantidad<10) {
+    if (itemNombre.trim() && itemCantidad > 0 && itemCantidad<1000) {
       const nuevoitem = {id:cont ,nombre: itemNombre, cantidad:itemCantidad, marcado:false};
-      cont++;
-      setContador(cont);
+      setContador(cont+1);
       setItems([...items, nuevoitem]); 
       setInputNombre(''); 
       setInputCantidad(1);
     }
-    if(itemNombre.trim() && itemCantidad > 0 && itemCantidad>=10) {
-      const nuevoitem = {id:contador, nombre: itemNombre, cantidad:10, marcado:false};
+    if(itemNombre.trim() && itemCantidad > 0 && itemCantidad>=1000) {
+      const nuevoItem = {id:contador, nombre: itemNombre, cantidad:1000, marcado:false};
       setContador(contador++);
-      setItems([...items, nuevoitem]); 
+      setItems([...items, nuevoItem]); 
       setInputNombre(''); 
       setInputCantidad(1);
   }
@@ -61,7 +61,7 @@ export function Nuevo({setEdit, setPant, items, setItems, contador, setContador}
     <div>
       <div>
         <div>
-          <h1>Nuevo item (cantidad max 10)</h1>
+          <h1>Nuevo item</h1>
         </div>
         <input
           type="text"
@@ -74,27 +74,13 @@ export function Nuevo({setEdit, setPant, items, setItems, contador, setContador}
             type="number"
             placeholder="Cantidad (max 10)"
             min={1}
-            max={10}
+            max={1000}
             value={itemCantidad}
             onChange={validarCantidad} />
         <button onClick={Agregar}>Agregar</button>
       </div>
       <ul className="lista_contenedor">
-        {items.map((item, index) => (
-            <div>
-                <li className={item.marcado ? "lista_items_realizado":""} key={item.id}>{item.nombre}  cantidad: {item.cantidad}
-                    <input  className="lista_item_hecho"
-                            checked= {item.marcado}
-                            type="checkbox" 
-                            onChange={() => Realizado(item)}/>
-                    <button className="lista_item_eliminar"
-                            onClick={() => Eliminar(index)}>X</button>
-                    <button className="lista_item_modificar"
-                            onClick={() => Editar(item)}>EDIT</button>
-                </li>
-                {console.log(item)}
-            </div>
-        ))}
+        <MostrarLista items={items} Realizado={Realizado} Eliminar={Eliminar} Editar={Editar}></MostrarLista>
       </ul>
     </div>
   );
