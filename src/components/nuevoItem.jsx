@@ -40,7 +40,7 @@ export function Nuevo({setEdit, setPant, items, setItems, contador, setContador}
   function validarCantidad (e){
     const cant = parseInt(e.target.value, 10);
     if(cant < 0){
-        setInputCantidad(0);
+        setInputCantidad(1);
     }else{
         setInputCantidad(cant);
     }
@@ -48,7 +48,7 @@ export function Nuevo({setEdit, setPant, items, setItems, contador, setContador}
 
 
   function Eliminar (indexItem){
-    setItems((items) => items.filter((item, index) => index !== indexItem))
+    setItems(items.filter((item, index) => index !== indexItem))
   }
 
   function Editar (item){
@@ -72,7 +72,7 @@ export function Nuevo({setEdit, setPant, items, setItems, contador, setContador}
 
         <input 
             type="number"
-            placeholder="Cantidad (max 10)"
+            placeholder="Cantidad"
             min={1}
             max={1000}
             value={itemCantidad}
