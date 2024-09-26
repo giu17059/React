@@ -26,18 +26,20 @@ function actualizarListaActual(nuevaLista) {
 
 return (
 
-<div className="inicio">
+<div className="inicio container inicio_container">
+  <div className='columna'>
   {pantalla ? (
-// NO tocar
-//
-    <div>
+    
+    <div className='listas'>
+      <h1>Lista de compras</h1>
       <SelectLista 
       setLista={setLista} 
       lista={listaLista} 
       setListaLista={setListaLista} 
       listaActual={lista}
       setIndexListaActual={setIndexListaActual}/>
-      
+
+      <h3>Nuevo Item</h3>
       <Nuevo 
       setEdit={setItemEdit} 
       setPant={setPantalla} 
@@ -62,10 +64,10 @@ return (
   </div>
 
 
-//NO tocar
-//
+
     )
     }
+    </div>
   </div>
   );
 };

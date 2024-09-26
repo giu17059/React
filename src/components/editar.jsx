@@ -1,4 +1,5 @@
 import "../App.css";
+
 import React, { useState } from "react";
 
 
@@ -35,24 +36,29 @@ export function Editar ({producto, setPant, items, setItems}){
          <h1>Editar item</h1>
         </div>
         <div>
-            <label>nombre: {producto.nombre}</label>
-            <label> cantidad: {producto.cantidad}</label>
-        </div>
+        <label>Nombre anterior: {producto.nombre}</label>
         <input
+          className="input_agregar nombre"
           type="text"
           placeholder="Añadir un producto"
           value={itemEditNombre}
           onChange={(e) => setEditNombre(e.target.value)}
         />
+        </div>
+        <div>
+        <label className="label_editar">Cantidad anterior: {producto.cantidad}</label>
+        <div></div>
         <input 
+            className="input_agregar cantidad"
             type="number"
             placeholder="Cantidad (max 10)"
             min={1}
             max={10}
             value={itemEditCantidad}
             onChange={validarCantidadEdit} />
-        <button disabled={itemEditNombre === ""} onClick={()=>CambiarItem (producto.id)}>Guardar</button>
-        <button onClick={()=>CancelarEdit()}>Cancelar</button>
+          </div>
+        <button className="boton_editar" disabled={itemEditNombre === ""} onClick={()=>CambiarItem (producto.id)}>Guardar</button>
+        <button className="boton_eliminar" onClick={()=>CancelarEdit()}>Cancelar</button>
       </div>
   );
 }

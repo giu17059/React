@@ -1,4 +1,5 @@
 import "../App.css";
+
 import React, { useState } from "react";
 import { MostrarLista } from "./listado";
 
@@ -59,11 +60,9 @@ export function Nuevo({setEdit, setPant, items, setItems, contador, setContador}
 
   return (
     <div>
-      <div>
-        <div>
-          <h1>Nuevo item</h1>
-        </div>
+      <div className="container">
         <input
+          className="input_agregar nombre"
           type="text"
           placeholder="Añadir un producto"
           value={itemNombre}
@@ -71,17 +70,20 @@ export function Nuevo({setEdit, setPant, items, setItems, contador, setContador}
         />
 
         <input 
-            type="number"
-            placeholder="Cantidad"
-            min={1}
-            max={1000}
-            value={itemCantidad}
-            onChange={validarCantidad} />
-        <button onClick={Agregar}>Agregar</button>
+          className="input_agregar cantidad"
+          type="number"
+          placeholder="Cantidad"
+          min={1}
+          max={1000}
+          value={itemCantidad}
+          onChange={validarCantidad} />
       </div>
-      <ul className="lista_contenedor">
+      <div>
+      <button className="boton boton_agregar" onClick={Agregar}>Agregar</button>
+      </div>      
+      <div>
         <MostrarLista items={items} Realizado={Realizado} Eliminar={Eliminar} Editar={Editar}></MostrarLista>
-      </ul>
+      </div>
     </div>
   );
 }
